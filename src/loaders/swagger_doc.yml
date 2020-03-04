@@ -1,0 +1,76 @@
+openapi: 3.0.0
+
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.0.1
+servers:
+  - url: http://localhost:3000
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+
+components:
+  schemas:
+    User:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - name
+        - id
+    ReturnedUser:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          properties:
+            owner:
+              type: string
+            metadata:
+              $ref : '#/components/schemas/MetaData'
+
+    Molecule:
+      properties:
+        name:
+          type: string
+        owner:
+          type: string
+        institution:
+          type: string
+        smiles:
+          type: string
+        inchi:
+          type: string
+        calculated-properties:
+          type: object
+        documented-properties:
+          type: object
+        comments:
+          type: string
+        value:
+          type: integer
+      required:
+        - name
+        - owner
+
+    ReturnedMolecule:
+      allOf:
+        - $ref: '#/components/schemas/Molecule'
+        - type: object
+          properties:
+            uploader:
+              type: string
+            metadata:
+              $ref : '#/components/schemas/MetaData'
+
+    MetaData:
+      properties:
+        txid:
+          type: string
+
+    GenericError:
+      properties:
+        error:
+          type: string

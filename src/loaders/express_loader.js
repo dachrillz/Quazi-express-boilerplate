@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from '../api';
-import config from '../config';
 
 export default (app) => {
     /**
@@ -23,8 +22,6 @@ export default (app) => {
 
     // Load API routes
     app.use('/api', routes);
-
-    console.log(app._router.stack);
 
     /// catch 404 and forward to error handler
     app.use((req, res, next) => {

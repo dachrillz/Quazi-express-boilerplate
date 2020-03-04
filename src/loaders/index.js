@@ -1,9 +1,11 @@
 import Logger from './logger';
 import fabric_loader from './fabric_loader';
 import express_loader from './express_loader';
+import swagger_loader from './swagger_loader';
 import {Container} from 'typedi';
 import yaml from 'js-yaml';
 import {promises as fs} from 'fs';
+import Helpers from "../services/helpers";
 
 async function LoadSettings(name, path) {
     const loaded = yaml.safeLoad(await fs.readFile(path, 'utf8'));
@@ -14,12 +16,15 @@ async function LoadSettings(name, path) {
 export default async function (app) {
     Logger.info('Loading modules');
 
+    //Load Helper class
+    Container.set("helpers", new Helpers());
+    Logger.info('Loaded Helpers class');
+
     //Load settings @TODO: Here an environment variable should change if we load: local,syst
     const CCP_DEFAULT = `${app.appRoot}/config/common_connections_profile.yaml`;
     const SETTINGS_DEFAULT = `${app.appRoot}/config/fabric.yaml`;
 
     const loadedUserSettings = await LoadSettings("User Settings", SETTINGS_DEFAULT);
-
 
     //Load Fabric backend
     Logger.info(`The environment variable for process.env.MOCK is: ${process.env.MOCK}`);
@@ -38,10 +43,10 @@ export default async function (app) {
         }
     }
 
+    //Load swagger configuration
+    await swagger_loader(app);
+
     //Load express configuration
     express_loader(app.expressApp);
-
-
-
 
 }
