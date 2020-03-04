@@ -1,0 +1,13 @@
+name: local_fabric
+version: 1.0.0
+
+organizations:
+  Org:
+    mspid: OrgMSP
+    peers:
+      - peer0.org.example.com
+
+peers:
+  peer0.org.example.com:
+    url: grpc://localhost:7051
+    # url: grpc://68.183.217.0:7051

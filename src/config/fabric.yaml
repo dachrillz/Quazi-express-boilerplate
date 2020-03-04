@@ -1,0 +1,10 @@
+# Default Settings
+
+userCertificate:
+  config/crypto-config/peerOrganizations/org.example.com/users/User1@org.example.com/msp/signcerts/User1@org.example.com-cert.pem
+userKey:
+  config/crypto-config/peerOrganizations/org.example.com/users/User1@org.example.com/msp/keystore/key.pem
+identity: User1@org.example.com
+orgMsp : OrgMSP
+channel: mychannel
+chaincode: mycc
