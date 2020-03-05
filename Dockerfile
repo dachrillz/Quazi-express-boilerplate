@@ -10,7 +10,6 @@ COPY package.json ./
 COPY package-lock.json ./
 
 RUN npm install
-RUN npm install -g swagger
 # If you are building your code for production
 # RUN npm ci --only=production
 
